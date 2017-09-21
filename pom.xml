@@ -6,7 +6,7 @@
 
     <groupId>cn.gov.zcy.platform</groupId>
     <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <properties>
         <spring-boot-autoconfig.version>1.5.2.RELEASE</spring-boot-autoconfig.version>

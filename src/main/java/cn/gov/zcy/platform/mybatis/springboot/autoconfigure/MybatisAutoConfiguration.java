@@ -47,6 +47,8 @@ import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -162,10 +164,17 @@ public class MybatisAutoConfiguration {
     }
   }
 
-//  @Bean
-//  public MybatisProperties MybatisProperties(){
-//    return new MybatisProperties();
-//  }
+  /**
+   * 配置事务
+   * @param dataSource
+   * @return
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public PlatformTransactionManager TransactionManager(DataSource dataSource) {
+    return new DataSourceTransactionManager(dataSource);
+  }
+
 
   /**
    * This will just scan the same base package as Spring Boot does. If you want
@@ -192,7 +201,6 @@ public class MybatisAutoConfiguration {
         if (this.resourceLoader != null) {
           scanner.setResourceLoader(this.resourceLoader);
         }
-
         List<String> packages = AutoConfigurationPackages.get(this.beanFactory);
         if (logger.isDebugEnabled()) {
           for (String pkg : packages) {

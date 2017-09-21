@@ -28,6 +28,7 @@ public class DynamicDataSourceAspect {
     @Before( value = "dsPointCut(ds)")
     public void changeDataSource(JoinPoint point, DataSource ds) throws Throwable {
         //DataSource ds = point.getTarget().getClass().getAnnotation(DataSource.class);
+        DataSource dsx = point.getTarget().getClass().getAnnotation(DataSource.class);
         String dsId = ds.value();
         if (!DynamicDataSourceContextHolder.contain(dsId)) {
             logger.error("数据源[{}]不存在，使用默认数据源 > {}", ds.value(), point.getSignature());
